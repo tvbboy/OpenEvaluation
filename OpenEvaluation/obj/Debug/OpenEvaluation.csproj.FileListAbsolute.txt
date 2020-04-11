@@ -1,0 +1,5 @@
+C:\myasp.net\OpenEvaluation\OpenEvaluation\bin\OpenEvaluation.dll
+C:\myasp.net\OpenEvaluation\OpenEvaluation\bin\OpenEvaluation.pdb
+C:\myasp.net\OpenEvaluation\OpenEvaluation\bin\Common.Framework.Tvbboy.dll
+C:\myasp.net\OpenEvaluation\OpenEvaluation\obj\Debug\OpenEvaluation.dll
+C:\myasp.net\OpenEvaluation\OpenEvaluation\obj\Debug\OpenEvaluation.pdb
