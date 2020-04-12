@@ -26,7 +26,7 @@ namespace OpenEvaluation
                 }
                 catch(Exception ex)
                 {
-                    Response.Write("Something wrong when connect to the sql. Please try again later.</br>Please refresh.");
+                    Response.Write("Something wrong when connect to the sql. Please try again later.<br/>Please refresh.");
 
                 }
                 sqlHelper.Close();

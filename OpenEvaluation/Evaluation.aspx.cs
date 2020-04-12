@@ -111,18 +111,18 @@ namespace OpenEvaluation
                 if (isinsert)
                 {
                     colList.CommandText = "insert into tblEvaluation (homeworkID,studentID,myScore1,myScore2,myScore3,myScore4,myScore5,ScoreItemID,teamID) " +
-                        "values(@homeworkID, '@username', @score0, @score1, @score2, @score3, @score4, @ScoreItemID, @teamID)";
+                        "values(@homeworkID, @username, @score0, @score1, @score2, @score3, @score4, @ScoreItemID, @teamID)";
                     colList.Parameters.AddRange
                     (
                         new SqlParameter[]
                         {
                             new SqlParameter("@homeworkID", SqlDbType.VarChar){ Value=0 },
                             new SqlParameter("@username", SqlDbType.VarChar){ Value=lblUseranme.Text },
-                            new SqlParameter("@score0", SqlDbType.Int){ Value=myscore[0]},
-                            new SqlParameter("@score1", SqlDbType.Int){ Value=myscore[1]},
-                            new SqlParameter("@score2", SqlDbType.Int){ Value=myscore[2]},
-                            new SqlParameter("@score3", SqlDbType.Int){ Value=myscore[3]},
-                            new SqlParameter("@score4", SqlDbType.Int){ Value=myscore[4]},
+                            new SqlParameter("@score0", SqlDbType.Float){ Value=myscore[0]},
+                            new SqlParameter("@score1", SqlDbType.Float){ Value=myscore[1]},
+                            new SqlParameter("@score2", SqlDbType.Float){ Value=myscore[2]},
+                            new SqlParameter("@score3", SqlDbType.Float){ Value=myscore[3]},
+                            new SqlParameter("@score4", SqlDbType.Float){ Value=myscore[4]},
                             new SqlParameter("@ScoreItemID", SqlDbType.VarChar){ Value=0 },
                             new SqlParameter("@teamID", SqlDbType.VarChar){ Value=lblTeamID.Text}
                         }
@@ -131,16 +131,16 @@ namespace OpenEvaluation
                 else
                 {
                     colList.CommandText = "update tblEvaluation set myScore1=@score0, myScore2=@score1, myScore3=@score2, " +
-                        "myScore4=@score3, myScore5=@score4 where studentID='@studentID' and teamID=teamID";
+                        "myScore4=@score3, myScore5=@score4 where studentID=@username and teamID=teamID";
                     colList.Parameters.AddRange
                     (
                         new SqlParameter[]
                         {
-                            new SqlParameter("@score0", SqlDbType.Int){ Value=myscore[0]},
-                            new SqlParameter("@score1", SqlDbType.Int){ Value=myscore[1]},
-                            new SqlParameter("@score2", SqlDbType.Int){ Value=myscore[2]},
-                            new SqlParameter("@score3", SqlDbType.Int){ Value=myscore[3]},
-                            new SqlParameter("@score4", SqlDbType.Int){ Value=myscore[4]},
+                            new SqlParameter("@score0", SqlDbType.Float){ Value=myscore[0]},
+                            new SqlParameter("@score1", SqlDbType.Float){ Value=myscore[1]},
+                            new SqlParameter("@score2", SqlDbType.Float){ Value=myscore[2]},
+                            new SqlParameter("@score3", SqlDbType.Float){ Value=myscore[3]},
+                            new SqlParameter("@score4", SqlDbType.Float){ Value=myscore[4]},
                             new SqlParameter("@username", SqlDbType.VarChar){ Value=lblUseranme.Text },
                             new SqlParameter("@teamID", SqlDbType.VarChar){ Value=lblTeamID.Text}
                         }

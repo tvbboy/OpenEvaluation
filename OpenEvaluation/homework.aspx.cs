@@ -47,7 +47,6 @@ namespace OpenEvaluation
 
                     sql = "select count(*) from tblTeam";
                     lblTotal.Text = sh.RunSelectSQLToScalar(sql);
-
                     sql = "select count(*) from tblEvaluation where studentID='" + lblUseranme.Text + "' and homeworkID=" +lblHomeworkID.Text ;
                     string tmp = sh.RunSelectSQLToScalar(sql);
 
