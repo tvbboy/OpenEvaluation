@@ -103,7 +103,48 @@ namespace OpenEvaluation
                     isinsert = false;
                 }
                 sdr.Close();
-                StringBuilder opSql = new StringBuilder();
+                // StringBuilder opSql = new StringBuilder();
+                SqlCommand colList = new SqlCommand();
+                if (isinsert)
+                {
+                    colList.CommandText = "insert into tblEvaluation (homeworkID,studentID,myScore1,myScore2,myScore3,myScore4,myScore5,ScoreItemID,teamID) " +
+                        "values(@date, '@username', @score0, @score1, @score2, @score3, @score4, @date2, @teamID)";
+                    colList.Parameters.AddRange
+                    (
+                        new SqlParameter[]
+                        {
+                            new SqlParameter("@date", 0),
+                            new SqlParameter("@username", lblUseranme.Text),
+                            new SqlParameter("@score0", myscore[0]),
+                            new SqlParameter("@score1", myscore[1]),
+                            new SqlParameter("@score2", myscore[2]),
+                            new SqlParameter("@score3", myscore[3]),
+                            new SqlParameter("@score4", myscore[4]),
+                            new SqlParameter("@date2", 0),
+                            new SqlParameter("@teamID", lblTeamID.Text)
+                        }
+                      ); 
+                }
+                else
+                {
+                    colList.CommandText = "update tblEvaluation set myScore1=@score0, myScore2=@score1, myScore3=@score2, " +
+                        "myScore4=@score3, myScore5=@score4 where studentID='@studentID' and teamID=teamID";
+                    colList.Parameters.AddRange
+                    (
+                        new SqlParameter[]
+                        {
+                            new SqlParameter("@score0", myscore[0]),
+                            new SqlParameter("@score1", myscore[1]),
+                            new SqlParameter("@score2", myscore[2]),
+                            new SqlParameter("@score3", myscore[3]),
+                            new SqlParameter("@score4", myscore[4]),
+                            new SqlParameter("@studentID", lblUseranme.Text),
+                            new SqlParameter("@teamID", lblTeamID.Text)
+                        }
+                    );
+                }
+                string opSql = colList.ToString();
+                /**
                 string colList = "homeworkID,studentID,myScore1,myScore2,myScore3,myScore4,myScore5,ScoreItemID,teamID";
                 if (isinsert)
                 {
@@ -144,6 +185,7 @@ namespace OpenEvaluation
                     opSql.Append(string.Format(" where studentID='{0}' and teamID={1}", lblUseranme.Text, lblTeamID.Text)); //condition,where前要有空格
                     
                 }
+                */
                 int rows = sh.RunSQL(opSql.ToString());
                 if (rows > 0)
                     Response.Write("<script language='javascript'>alert('评价成功！')</script>");
@@ -154,6 +196,10 @@ namespace OpenEvaluation
                 }
 
 
+            }
+            catch (System.ArgumentException ae)
+            {
+                Response.Write("不许玩注入");
             }
             catch(Exception ex)
             {
