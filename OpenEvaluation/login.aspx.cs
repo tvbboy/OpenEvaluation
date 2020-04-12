@@ -38,12 +38,13 @@ namespace OpenEvaluation
         {
             string username = txtUsername.Text;
             string pwd = txtPwd.Text;
-            List<Student> student = table.Where(p => p.Field<string>("username") == username && p.Field<string>("pwd") == ClassMd5.Md5Hash32(pwd)).Select(
-                    p => new Student
-                    (
-                        username, ClassMd5.Md5Hash32(pwd), p.Field<string>("truename")
-                    )
-                ).ToList();
+            List<Student> student = table.Where(p => p.Field<string>("username") == username && p.Field<string>("pwd") == ClassMd5.Md5Hash32(pwd)).Select
+            (
+                p => new Student
+                (
+                    username, ClassMd5.Md5Hash32(pwd), p.Field<string>("truename")
+                )
+            ).ToList();
             if (student.Count != 1)
             {
                 Response.Write("请输入正确的账号密码");
@@ -54,7 +55,6 @@ namespace OpenEvaluation
                 Session["truename"] = student[0].truename;
                 Response.Redirect("homework.aspx");
             }
-
         }
         private class Student
         {

@@ -2,7 +2,8 @@
 using SQL;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
+using System.Web.Configuration;
+using System.Text.RegularExpressions;
 namespace OpenEvaluation
 {
     public partial class Evaluation : System.Web.UI.Page
@@ -93,37 +94,39 @@ namespace OpenEvaluation
                 return;
             }
             //处理提交的分数
+            SqlConnection conn = null;
             string sql = string.Format("select studentID from tblEvaluation where studentID='{0}' and teamID={1}", lblUseranme.Text, lblTeamID.Text);
             try
             {
                 SqlDataReader sdr;
                 sh.RunSQL(sql, out sdr);
-                if (sdr.Read()) //改题目已经评价过
+                if (sdr.Read()) //该题目已经评价过
                 {
                     isinsert = false;
                 }
                 sdr.Close();
-                // StringBuilder opSql = new StringBuilder();
                 SqlCommand colList = new SqlCommand();
+                conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString);
+                colList.Connection = conn;
                 if (isinsert)
                 {
                     colList.CommandText = "insert into tblEvaluation (homeworkID,studentID,myScore1,myScore2,myScore3,myScore4,myScore5,ScoreItemID,teamID) " +
-                        "values(@date, '@username', @score0, @score1, @score2, @score3, @score4, @date2, @teamID)";
+                        "values(@homeworkID, '@username', @score0, @score1, @score2, @score3, @score4, @ScoreItemID, @teamID)";
                     colList.Parameters.AddRange
                     (
                         new SqlParameter[]
                         {
-                            new SqlParameter("@date", 0),
-                            new SqlParameter("@username", lblUseranme.Text),
-                            new SqlParameter("@score0", myscore[0]),
-                            new SqlParameter("@score1", myscore[1]),
-                            new SqlParameter("@score2", myscore[2]),
-                            new SqlParameter("@score3", myscore[3]),
-                            new SqlParameter("@score4", myscore[4]),
-                            new SqlParameter("@date2", 0),
-                            new SqlParameter("@teamID", lblTeamID.Text)
+                            new SqlParameter("@homeworkID", SqlDbType.VarChar){ Value=0 },
+                            new SqlParameter("@username", SqlDbType.VarChar){ Value=lblUseranme.Text },
+                            new SqlParameter("@score0", SqlDbType.Int){ Value=myscore[0]},
+                            new SqlParameter("@score1", SqlDbType.Int){ Value=myscore[1]},
+                            new SqlParameter("@score2", SqlDbType.Int){ Value=myscore[2]},
+                            new SqlParameter("@score3", SqlDbType.Int){ Value=myscore[3]},
+                            new SqlParameter("@score4", SqlDbType.Int){ Value=myscore[4]},
+                            new SqlParameter("@ScoreItemID", SqlDbType.VarChar){ Value=0 },
+                            new SqlParameter("@teamID", SqlDbType.VarChar){ Value=lblTeamID.Text}
                         }
-                      ); 
+                      ) ;
                 }
                 else
                 {
@@ -133,60 +136,19 @@ namespace OpenEvaluation
                     (
                         new SqlParameter[]
                         {
-                            new SqlParameter("@score0", myscore[0]),
-                            new SqlParameter("@score1", myscore[1]),
-                            new SqlParameter("@score2", myscore[2]),
-                            new SqlParameter("@score3", myscore[3]),
-                            new SqlParameter("@score4", myscore[4]),
-                            new SqlParameter("@studentID", lblUseranme.Text),
-                            new SqlParameter("@teamID", lblTeamID.Text)
+                            new SqlParameter("@score0", SqlDbType.Int){ Value=myscore[0]},
+                            new SqlParameter("@score1", SqlDbType.Int){ Value=myscore[1]},
+                            new SqlParameter("@score2", SqlDbType.Int){ Value=myscore[2]},
+                            new SqlParameter("@score3", SqlDbType.Int){ Value=myscore[3]},
+                            new SqlParameter("@score4", SqlDbType.Int){ Value=myscore[4]},
+                            new SqlParameter("@username", SqlDbType.VarChar){ Value=lblUseranme.Text },
+                            new SqlParameter("@teamID", SqlDbType.VarChar){ Value=lblTeamID.Text}
                         }
                     );
                 }
-                string opSql = colList.ToString();
-                /**
-                string colList = "homeworkID,studentID,myScore1,myScore2,myScore3,myScore4,myScore5,ScoreItemID,teamID";
-                if (isinsert)
-                {
-                    opSql = new StringBuilder(string.Format("insert into tblEvaluation ({0})", colList));
-                    opSql.Append("values(");
-                    opSql.Append(string.Format("{0}", 1));//日期值必须使用单引号括起来
-                    opSql.Append(",");        //逗号分隔     
-                    opSql.Append(string.Format("'{0}'", lblUseranme.Text));//数字不需要单引号
-                    opSql.Append(",");        //逗号分隔
-                    opSql.Append(string.Format("{0}", myscore[0]));
-                    opSql.Append(",");       //逗号分隔
-                    opSql.Append(string.Format("{0}", myscore[1]));
-                    opSql.Append(",");        //逗号分隔
-                    opSql.Append(string.Format("{0}", myscore[2]));
-                    opSql.Append(",");       //逗号分隔
-                    opSql.Append(string.Format("{0}", myscore[3]));
-                    opSql.Append(",");
-                    opSql.Append(string.Format("{0}", myscore[4]));
-                    opSql.Append(",");
-                    opSql.Append(string.Format("{0}", 0));//日期值必须使用单引号括起来
-                    opSql.Append(",");
-                    opSql.Append(string.Format("{0}", lblTeamID.Text));//日期值必须使用单引号括起来
-                    opSql.Append(")");      //逗号分隔
-                }
-                else
-                {
-                    opSql = new StringBuilder("update tblEvaluation set ");
-                    opSql.Append(string.Format("myScore1={0}", myscore[0]));
-                    opSql.Append(",");
-                    opSql.Append(string.Format("myScore2={0}", myscore[1]));
-                    opSql.Append(",");
-                    opSql.Append(string.Format("myScore3={0}", myscore[2]));
-                    opSql.Append(",");
-                    opSql.Append(string.Format("myScore4={0}", myscore[3]));
-                    opSql.Append(",");
-                    opSql.Append(string.Format("myScore5={0}", myscore[4]));
-
-                    opSql.Append(string.Format(" where studentID='{0}' and teamID={1}", lblUseranme.Text, lblTeamID.Text)); //condition,where前要有空格
-                    
-                }
-                */
-                int rows = sh.RunSQL(opSql.ToString());
+                colList.Connection.Open();
+                int rows = colList.ExecuteNonQuery();
+                colList.Connection.Close();
                 if (rows > 0)
                     Response.Write("<script language='javascript'>alert('评价成功！')</script>");
                 else
@@ -199,7 +161,7 @@ namespace OpenEvaluation
             }
             catch (System.ArgumentException ae)
             {
-                Response.Write("不许玩注入");
+                Response.Write("<script language='javascript'>alert('不许玩注入')</script>");
             }
             catch(Exception ex)
             {
