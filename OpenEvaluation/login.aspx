@@ -15,7 +15,10 @@
         密 码：<asp:TextBox ID="txtPwd" runat="server" TextMode="Password"></asp:TextBox>
         <br />
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="登录" />
-    
+        THANKS:
+        (1) 2020年4月13日  杨赟修复SQL注入BUG！
+        To be continue ...........
+        对以上同学所作贡献，表示感谢
     </div>
     </form>
 </body>
