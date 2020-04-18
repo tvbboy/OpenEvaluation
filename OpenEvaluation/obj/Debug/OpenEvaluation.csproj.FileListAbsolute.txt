@@ -3,3 +3,12 @@ C:\myasp.net\OpenEvaluation\OpenEvaluation\bin\OpenEvaluation.pdb
 C:\myasp.net\OpenEvaluation\OpenEvaluation\bin\Common.Framework.Tvbboy.dll
 C:\myasp.net\OpenEvaluation\OpenEvaluation\obj\Debug\OpenEvaluation.dll
 C:\myasp.net\OpenEvaluation\OpenEvaluation\obj\Debug\OpenEvaluation.pdb
+D:\openEvaluation\OpenEvaluation\OpenEvaluation\bin\OpenEvaluation.dll.config
+D:\openEvaluation\OpenEvaluation\OpenEvaluation\bin\OpenEvaluation.dll
+D:\openEvaluation\OpenEvaluation\OpenEvaluation\bin\OpenEvaluation.pdb
+D:\openEvaluation\OpenEvaluation\OpenEvaluation\bin\Newtonsoft.Json.dll
+D:\openEvaluation\OpenEvaluation\OpenEvaluation\obj\Debug\OpenEvaluation.csprojAssemblyReference.cache
+D:\openEvaluation\OpenEvaluation\OpenEvaluation\obj\Debug\OpenEvaluation.csproj.CoreCompileInputs.cache
+D:\openEvaluation\OpenEvaluation\OpenEvaluation\obj\Debug\OpenEvaluation.csproj.CopyComplete
+D:\openEvaluation\OpenEvaluation\OpenEvaluation\obj\Debug\OpenEvaluation.dll
+D:\openEvaluation\OpenEvaluation\OpenEvaluation\obj\Debug\OpenEvaluation.pdb
