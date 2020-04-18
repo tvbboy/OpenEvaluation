@@ -17,7 +17,7 @@
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="登录" />
          <br />
         THANKS:
-        (1) 2020年4月13日  杨赟修复SQL注入BUG！
+        (1) 2020年4月13日  杨贇修复SQL注入BUG！
         <br />
         To be continue ...........
         <br />

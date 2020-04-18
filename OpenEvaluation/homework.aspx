@@ -10,10 +10,13 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:Label ID="lblUseranme" runat="server" Text="XXXX "></asp:Label>(<asp:Label ID="lblTrueName" runat="server" Text="XXXX "></asp:Label>)
-        你好&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 你还有
-    
-        <asp:Label ID="lblCount" runat="server" Text="XXXX " ForeColor="Red"></asp:Label>
+        <asp:Label ID="lblUseranme" runat="server" Text="XXXX "></asp:Label>(<asp:Label ID="lblTrueName" runat="server" Text="XXXX "></asp:Label>) 你好<br />
+        你的小组分数为 
+        <asp:Label ID="teamScore" runat="server" Text="XXX"></asp:Label>
+        <br />
+        <br />
+        <br />
+        你还有 <asp:Label ID="lblCount" runat="server" Text="XXXX " ForeColor="Red"></asp:Label>
         &nbsp; 个作品未评分,总共有<asp:Label ID="lblTotal" runat="server" Text="XXXX " ForeColor="Red"></asp:Label>个作品<br />
         <br />
         作业：<asp:Label ID="lblHomework" runat="server" Text="Label"></asp:Label><asp:Label ID="lblHomeworkID" Visible="false" runat="server" Text="Label"></asp:Label>

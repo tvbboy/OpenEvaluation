@@ -61,6 +61,13 @@ namespace OpenEvaluation
                     DataTable dt = ds.Tables[0];
                     GridView1.DataSource = dt;
                     GridView1.DataBind();
+
+
+                    sql = $"select id from tblTeam where team LIKE \'%{lblTrueName.Text}%\'";
+                    int teamId = int.Parse(sh.RunSelectSQLToScalar(sql));
+                    sql = $"select AVG(myScore1)+AVG(myScore2)+AVG(myScore3)+AVG(myScore4)+AVG(myScore5) from tblEvaluation where teamID = {teamId} group by teamID ";
+                    string score = sh.RunSelectSQLToScalar(sql);
+                    teamScore.Text = score;
                 }
                 catch(Exception ex) {
                     Response.Write(ex.Message);
